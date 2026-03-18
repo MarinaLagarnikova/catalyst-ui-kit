@@ -1,5 +1,6 @@
 {
   "files": [],
+  "include": ["vite.config.*", "vitest.config.*", ".storybook/**/*", ".storybook-static/**/*", "src/**/*.stories.ts"],
   "references": [
     {
       "path": "./tsconfig.app.json"
