@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Button } from '@headlessui/vue'
 import { computed } from 'vue'
 import TouchTarget from './TouchTarget.vue'
 import { buttonStyles } from './styles'
@@ -39,7 +38,7 @@ const computedClasses = computed(() => {
 </script>
 
 <template>
-  <Button
+  <button
     :type="type"
     :disabled="disabled"
     :class="computedClasses"
@@ -48,5 +47,5 @@ const computedClasses = computed(() => {
     <TouchTarget>
       <slot />
     </TouchTarget>
-  </Button>
+  </button>
 </template>
