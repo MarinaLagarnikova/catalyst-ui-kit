@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import TouchTarget from './TouchTarget.vue'
 import { buttonStyles } from './styles'
 import type { ButtonColor, ButtonControlProps } from './types'
 import { clsx } from '@/shared/lib'
@@ -44,8 +43,6 @@ const computedClasses = computed(() => {
     :class="computedClasses"
     @click="handleClick"
   >
-    <TouchTarget>
-      <slot />
-    </TouchTarget>
+    <slot />
   </button>
 </template>
