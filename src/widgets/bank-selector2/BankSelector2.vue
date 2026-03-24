@@ -149,29 +149,27 @@ function handleSubmit() {
             color="blue"
           />
         </div>
+        <button
+          type="button"
+          class="mt-1 text-sm text-zinc-500 dark:text-zinc-400 text-left cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed block"
+          :disabled="isBankDisabled(bank.id)"
+          @click="toggleBank(bank.id)"
+        >
+          {{ getBankDescription(bank) }}
+        </button>
 
-        <!-- Description и кнопка/Select для 2-го и 3-го банка -->
+        <!-- Кнопка "Изменить" или Select для 2-го и 3-го банка -->
         <template v-if="index === 1 || index === 2">
-          <template v-if="!isEditingBank(bank.id)">
-            <button
-              type="button"
-              class="mt-1 text-sm text-zinc-500 dark:text-zinc-400 text-left cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed block"
-              :disabled="isBankDisabled(bank.id)"
-              @click="toggleBank(bank.id)"
-            >
-              {{ getBankDescription(bank) }}
-            </button>
-
-            <ButtonControl
-              outline
-              color="blue"
-              size="md"
-              class="mt-2"
-              @click="startEditing(bank.id)"
-            >
-              Изменить
-            </ButtonControl>
-          </template>
+          <ButtonControl
+            v-if="!isEditingBank(bank.id)"
+            outline
+            color="blue"
+            size="md"
+            class="mt-2"
+            @click="startEditing(bank.id)"
+          >
+            Изменить
+          </ButtonControl>
 
           <Select
             v-else
@@ -188,18 +186,6 @@ function handleSubmit() {
               {{ program.name }}
             </option>
           </Select>
-        </template>
-
-        <!-- Description только для 1-го банка -->
-        <template v-else>
-          <button
-            type="button"
-            class="mt-1 text-sm text-zinc-500 dark:text-zinc-400 text-left cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed block"
-            :disabled="isBankDisabled(bank.id)"
-            @click="toggleBank(bank.id)"
-          >
-            {{ getBankDescription(bank) }}
-          </button>
         </template>
       </div>
     </div>
