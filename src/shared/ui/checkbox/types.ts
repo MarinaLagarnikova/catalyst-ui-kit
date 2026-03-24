@@ -1,9 +1,9 @@
 export type CheckboxColor =
   | 'dark/zinc'
   | 'dark/white'
-  | 'dark'
-  | 'zinc'
+  | 'light/zinc'
   | 'white'
+  | 'zinc'
   | 'red'
   | 'orange'
   | 'amber'
@@ -24,18 +24,9 @@ export type CheckboxColor =
 
 export interface CheckboxProps {
   color?: CheckboxColor
+  modelValue?: boolean
   disabled?: boolean
-  name?: string
-  value?: string | number | readonly string[]
-  defaultChecked?: boolean
-  checked?: boolean
-  onChange?: (checked: boolean) => void
-  class?: string
-  type?: 'button' | 'submit' | 'reset'
   indeterminate?: boolean
-}
-
-export interface CheckboxFieldProps {
-  disabled?: boolean
+  label?: string
   class?: string
 }

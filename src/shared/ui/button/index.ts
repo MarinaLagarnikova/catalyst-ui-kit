@@ -1,3 +1,6 @@
 export { default as ButtonControl } from './ButtonControl.vue'
+export { default as IconButton } from './IconButton.vue'
 export { default as TouchTarget } from './TouchTarget.vue'
-export type { ButtonColor, ButtonControlProps } from './types'
+export { useButton } from './useButton'
+export { buttonStyles } from './styles'
+export type { ButtonColor, ButtonControlProps, IconButtonProps, ButtonSize } from './types'

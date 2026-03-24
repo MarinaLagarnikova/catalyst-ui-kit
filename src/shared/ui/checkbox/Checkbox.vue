@@ -1,77 +1,108 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Checkbox as HeadlessCheckbox } from '@headlessui/vue'
-import { checkboxStyles } from './styles'
 import type { CheckboxProps } from './types'
-import { clsx } from '@/shared/lib'
+import { checkboxStyles } from './styles'
+
+defineOptions({
+  name: 'Checkbox'
+})
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
   color: 'dark/zinc',
+  modelValue: false,
   disabled: false,
-  defaultChecked: false,
-  type: 'checkbox',
   indeterminate: false,
 })
 
 const emit = defineEmits<{
-  'update:checked': [checked: boolean]
-  change: [checked: boolean]
+  (e: 'update:modelValue', value: boolean): void
 }>()
 
-const internalChecked = computed({
-  get() {
-    return props.checked ?? props.defaultChecked
-  },
-  set(value) {
-    emit('update:checked', value)
-    emit('change', value)
-  },
+// Generate unique ID for this checkbox instance
+const checkboxId = computed(() => `checkbox-${Math.random().toString(36).substr(2, 9)}`)
+
+const isChecked = computed(() => {
+  return props.indeterminate || props.modelValue
 })
 
-const computedClasses = computed(() => {
-  return clsx(
-    props.class,
-    checkboxStyles.base,
-    checkboxStyles.input,
-    props.disabled && checkboxStyles.base.filter(c => c.includes('disabled')).join(' '),
-  )
+const checkboxClasses = computed(() => {
+  return checkboxStyles({
+    color: props.color,
+    checked: isChecked.value,
+    indeterminate: props.indeterminate,
+    disabled: props.disabled,
+  })
 })
 
-const indicatorClasses = computed(() => {
-  return clsx(
-    checkboxStyles.indicator,
-    props.color && checkboxStyles.colors[props.color as keyof typeof checkboxStyles.colors],
-  )
-})
+function toggle() {
+  if (!props.disabled) {
+    emit('update:modelValue', !props.modelValue)
+  }
+}
 
-const checkmarkClasses = computed(() => {
-  return clsx(checkboxStyles.checkmark)
-})
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    toggle()
+  }
+}
 </script>
 
 <template>
-  <HeadlessCheckbox
-    v-model="internalChecked"
-    :disabled="disabled"
-    :name="name"
-    :value="value"
-    :indeterminate="indeterminate"
-    :class="computedClasses"
+  <label
+    :for="checkboxId"
+    :class="[
+      'inline-flex items-center gap-2 cursor-pointer group',
+      disabled ? 'cursor-not-allowed opacity-50' : '',
+      props.class
+    ]"
   >
-    <span :class="indicatorClasses">
+    <input
+      :id="checkboxId"
+      type="checkbox"
+      :disabled="disabled"
+      :checked="isChecked"
+      @change="toggle"
+      @keydown="handleKeydown"
+      class="sr-only"
+    />
+    <span :class="checkboxClasses" class="flex-shrink-0">
+      <!-- Checkmark icon -->
       <svg
-        v-if="internalChecked"
-        :class="checkmarkClasses"
-        viewBox="0 0 16 16"
-        fill="currentColor"
-        aria-hidden="true"
+        v-if="isChecked && !indeterminate"
+        class="size-3.5"
+        viewBox="0 0 14 14"
+        fill="none"
       >
         <path
-          fill-rule="evenodd"
-          d="M12.016 2.371a1.49 1.49 0 0 0 1.066-.075 1.695l-2.294 3.86a1.49 1.49 0 0 0 1.066.061.356 1.695l.513 1.052a1.49 1.49 0 0 0 1.066.265 3.453 1.754 2.453 1.754 1.49 0 0 2.122-.685 3.019-2.273 1.712a1.49 1.49 0 0 0 1.066-.952 2.293-.584 3.305-.88 2.738a1.49 1.49 0 0 0 1.066 1.262 3.266 2.453 2.453 1.49 0 0 1.066z"
-          clip-rule="evenodd"
+          d="M3 8L6 11L11 3.5"
+          class="stroke-white stroke-[2.5]"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      <!-- Indeterminate icon -->
+      <svg
+        v-if="indeterminate"
+        class="size-3.5"
+        viewBox="0 0 14 14"
+        fill="none"
+      >
+        <path
+          d="M3 7H11"
+          class="stroke-white stroke-[2.5]"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         />
       </svg>
     </span>
-  </HeadlessCheckbox>
+    <span
+      v-if="label"
+      class="text-base/6 text-zinc-700 dark:text-zinc-300 select-none"
+    >
+      {{ label }}
+    </span>
+    <slot />
+  </label>
 </template>

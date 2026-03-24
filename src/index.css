@@ -1,8 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
+@theme {
+  /* Custom radius values */
   --radius-lg: 0.5rem;
   --radius-md: 0.375rem;
   --radius-sm: 0.25rem;

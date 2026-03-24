@@ -23,12 +23,28 @@ export type ButtonColor =
   | 'pink'
   | 'rose'
 
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon'
+
 export interface ButtonControlProps {
+  color?: ButtonColor
+  size?: ButtonSize
+  outline?: boolean
+  plain?: boolean
+  disabled?: boolean
+  loading?: boolean
+  type?: 'button' | 'submit' | 'reset'
+  class?: string
+  'aria-label'?: string
+  onClick?: () => void
+}
+
+export interface IconButtonProps {
   color?: ButtonColor
   outline?: boolean
   plain?: boolean
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   class?: string
+  'aria-label'?: string
   onClick?: () => void
 }
