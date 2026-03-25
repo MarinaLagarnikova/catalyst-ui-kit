@@ -29,3 +29,6 @@ catalyst-ui-kit/
 
 *storybook.log
 storybook-static
+
+# Git worktrees
+.worktrees/
