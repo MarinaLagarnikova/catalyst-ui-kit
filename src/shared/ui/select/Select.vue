@@ -75,10 +75,13 @@ const selectClasses = computed(() => {
     'bg-transparent dark:bg-white/5 dark:*:bg-zinc-800',
     // Hide default focus styles
     'focus:outline-hidden',
+    // Cursor
+    !props.disabled && 'cursor-pointer',
+    props.disabled && 'cursor-not-allowed',
     // Invalid state
     props.invalid ? 'data-invalid:border-red-500 data-invalid:data-hover:border-red-500 dark:data-invalid:border-red-600 dark:data-invalid:data-hover:border-red-600' : '',
     // Disabled state
-    props.disabled ? 'data-disabled:border-zinc-950/20 data-disabled:opacity-100 data-disabled:cursor-not-allowed dark:data-disabled:border-white/15 dark:data-disabled:bg-white/2.5 dark:data-hover:data-disabled:border-white/15' : '',
+    props.disabled ? 'data-disabled:border-zinc-950/20 data-disabled:opacity-100 dark:data-disabled:border-white/15 dark:data-disabled:bg-white/2.5 dark:data-hover:data-disabled:border-white/15' : '',
   )
 })
 </script>
