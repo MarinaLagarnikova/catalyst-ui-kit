@@ -45,7 +45,7 @@ const computedClasses = computed(() => {
     isDisabled.value ? 'data-disabled' : '',
     isHovered.value ? 'data-hover' : '',
     isActive.value ? 'data-active' : '',
-    props.loading ? 'cursor-wait' : 'cursor-pointer',
+    isDisabled.value ? '' : (props.loading ? 'cursor-wait' : 'cursor-pointer'),
   )
 })
 </script>

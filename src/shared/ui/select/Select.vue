@@ -51,7 +51,7 @@ const wrapperClasses = computed(() => {
     // Focus ring
     'after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-transparent after:ring-inset has-data-focus:after:ring-2 has-data-focus:after:ring-blue-500',
     // Disabled state
-    'has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none',
+    'has-data-disabled:opacity-50 has-data-disabled:cursor-not-allowed has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none',
     isFocused.value ? 'has-data-focus' : '',
     props.disabled ? 'has-data-disabled' : '',
   )
@@ -78,7 +78,7 @@ const selectClasses = computed(() => {
     // Invalid state
     props.invalid ? 'data-invalid:border-red-500 data-invalid:data-hover:border-red-500 dark:data-invalid:border-red-600 dark:data-invalid:data-hover:border-red-600' : '',
     // Disabled state
-    props.disabled ? 'data-disabled:border-zinc-950/20 data-disabled:opacity-100 dark:data-disabled:border-white/15 dark:data-disabled:bg-white/2.5 dark:data-hover:data-disabled:border-white/15' : '',
+    props.disabled ? 'data-disabled:border-zinc-950/20 data-disabled:opacity-100 data-disabled:cursor-not-allowed dark:data-disabled:border-white/15 dark:data-disabled:bg-white/2.5 dark:data-hover:data-disabled:border-white/15' : '',
   )
 })
 </script>
