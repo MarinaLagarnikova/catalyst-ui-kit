@@ -125,6 +125,28 @@ interface Bank {
 - Автоматический hot-reload при изменениях
 - Документация для всех компонентов
 
+## 2025-03-25 - Добавление disabled state для кнопки/Select
+
+### ✅ Реализованный функционал
+
+#### Disabled state для контролов банков 2 и 3
+**Изменения:** `/src/widgets/bank-selector2/BankSelector2.vue`
+
+**Новая функциональность:**
+- Когда чекбокс банка снят, кнопка "Изменить" или Select становятся disabled
+- Когда чекбокс выбран снова, контролы снова активны
+- Выбранное значение в Select сохраняется при снятии чекбокса
+- Визуальный стиль: opacity-50, cursor-not-allowed (согласован с другими disabled элементами)
+
+**Технические детали:**
+- Добавлен `:disabled="!isBankSelected(bank.id)"` к ButtonControl
+- Добавлен `:disabled="!isBankSelected(bank.id)"` к Select
+- Используется существующая функция `isBankSelected(bankId)`
+- Применяется только к 2-му и 3-му банкам (index 1 и 2)
+
+**Ветка:** `feat/bankselector2-disabled-state`
+**Коммит:** `feat: add disabled state to BankSelector2 button/select controls`
+
 ## Заметки для будущего
 
 ### TODO
