@@ -166,6 +166,7 @@ function handleSubmit() {
             color="blue"
             size="md"
             class="mt-2"
+            :disabled="!isBankSelected(bank.id)"
             @click="startEditing(bank.id)"
           >
             Изменить
@@ -175,6 +176,7 @@ function handleSubmit() {
             v-else
             :model-value="bank.selectedProgram || ''"
             @update:model-value="(value) => handleProgramChange(bank.id, value)"
+            :disabled="!isBankSelected(bank.id)"
             class="mt-2"
           >
             <option value="">Выберите программу</option>
